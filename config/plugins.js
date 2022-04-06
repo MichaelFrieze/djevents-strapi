@@ -9,6 +9,9 @@ module.exports = ({ env }) => ({
       },
       actionOptions: {
         upload: {
+          // cloudinary folder upload options are not working | about 2 weeks away
+          // https://github.com/strapi/strapi/pull/13018
+          // here is another: https://github.com/strapi/strapi/issues/12809
           // folder: env("CLOUDINARY_FOLDER"),
         },
         delete: {},
