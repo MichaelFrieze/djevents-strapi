@@ -7,6 +7,12 @@ module.exports = ({ env }) => ({
         api_key: env("CLOUDINARY_KEY"),
         api_secret: env("CLOUDINARY_SECRET"),
       },
+      actionOptions: {
+        upload: {
+          folder: env("CLOUDINARY_FOLDER"),
+        },
+        delete: {},
+      },
     },
   },
   slugify: {
@@ -36,7 +42,7 @@ module.exports = ({ env }) => ({
 //     },
 //     actionOptions: {
 //       upload: {
-//         // folder: env("CLOUDINARY_FOLDER"),
+//         folder: env("CLOUDINARY_FOLDER"),
 //       },
 //       delete: {},
 //     },
