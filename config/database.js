@@ -1,25 +1,38 @@
-// const path = require('path');
+const path = require("path");
 
-// module.exports = ({ env }) => ({
-//   connection: {
-//     client: 'sqlite',
-//     connection: {
-//       filename: path.join(__dirname, '..', env('DATABASE_FILENAME', '.tmp/data.db')),
-//     },
-//     useNullAsDefault: true,
-//   },
-// });
+module.exports = ({ env }) => {
+  if (env("NODE_ENV") === "production") {
+    return {
+      connection: {
+        client: "postgres",
+        connection: {
+          host: env("PGHOST", "127.0.0.1"),
+          port: env.int("PGPORT", 5432),
+          database: env("PGDATABASE", "strapi"),
+          user: env("PGUSER", "strapi"),
+          password: env("PGPASSWORD", "strapi"),
+          ssl: env("DATABASE_SSL", false),
+        },
+        pool: {
+          min: 0,
+          max: 6,
+        },
+        debug: false,
+      },
+    };
+  }
 
-module.exports = ({ env }) => ({
-  connection: {
-    client: "postgres",
+  return {
     connection: {
-      host: env("PGHOST", "127.0.0.1"),
-      port: env.int("PGPORT", 5432),
-      database: env("PGDATABASE", "strapi"),
-      user: env("PGUSER", "strapi"),
-      password: env("PGPASSWORD", "password"),
-      ssl: env.bool(true),
+      client: "sqlite",
+      connection: {
+        filename: path.join(
+          __dirname,
+          "..",
+          env("DATABASE_FILENAME", ".tmp/data.db")
+        ),
+      },
+      useNullAsDefault: true,
     },
-  },
-});
+  };
+};
