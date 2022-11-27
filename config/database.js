@@ -13,6 +13,10 @@ module.exports = ({ env }) => {
           password: env("PGPASSWORD", "strapi"),
           ssl: env("DATABASE_SSL", false),
         },
+        pool: {
+          min: 0,
+          max: 6,
+        },
         debug: false,
       },
     };
